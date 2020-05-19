@@ -67,7 +67,7 @@ public void LR_OnCoreIsReady()
 	LR_GetTitleMenu(g_sPluginTitle, sizeof(g_sPluginTitle));
 
 	char sQuery[768];
-	g_hDatabase.Format(sQuery, sizeof(sQuery), g_sCreateTable, g_sTableName, LR_GetDatabaseType() ? ";" : " CHARSET=utf8 COLLATE utf8_general_ci");
+	g_hDatabase.Format(sQuery, sizeof(sQuery), g_sCreateTable, g_sTableName, LR_GetDatabaseType() ? ";" : " CHARSET=utf8mb4 COLLATE utf8mb4_general_ci");
 	g_hDatabase.Query(SQL_CreateTable, sQuery, 0, DBPrio_High);
 }
 
@@ -79,7 +79,7 @@ public void SQL_CreateTable(Database db, DBResultSet dbRs, const char[] sError, 
 		return;
 	}
 
-	g_hDatabase.SetCharset("utf8");
+	g_hDatabase.SetCharset("utf8mb4");
 	for(int iClient = 1; iClient <= MaxClients; iClient++)
 	{
 		if(LR_GetClientStatus(iClient))
@@ -505,7 +505,7 @@ void DatabaseCleanup(LR_CleanupType iType, Transaction hQuery)
 		FormatEx(sQuery, sizeof(sQuery), "DROP TABLE IF EXISTS `%s_maps`;", g_sTableName);
 		hQuery.AddQuery(sQuery);
 
-		FormatEx(sQuery, sizeof(sQuery), g_sCreateTable, g_sTableName, LR_GetDatabaseType() ? ";" : " CHARSET=utf8 COLLATE utf8_general_ci");
+		FormatEx(sQuery, sizeof(sQuery), g_sCreateTable, g_sTableName, LR_GetDatabaseType() ? ";" : " CHARSET=utf8mb4 COLLATE utf8mb4_general_ci");
 		hQuery.AddQuery(sQuery);
 	}
 }

@@ -134,7 +134,7 @@ public void LR_OnCoreIsReady()
 
 	char sQuery[512];
 
-	FormatEx(sQuery, sizeof(sQuery), g_sSQL_CreateTable, g_sTableName, LR_GetDatabaseType() ? ";" : " CHARSET = utf8 COLLATE utf8_general_ci;");
+	FormatEx(sQuery, sizeof(sQuery), g_sSQL_CreateTable, g_sTableName, LR_GetDatabaseType() ? ";" : " CHARSET = utf8mb4 COLLATE utf8mb4_general_ci;");
 	(g_hDatabase = LR_GetDatabase()).Query(SQL_Callback, sQuery, -1, DBPrio_High);
 }
 
@@ -305,7 +305,7 @@ void OnDatabaseCleanup(LR_CleanupType CleanupType, Transaction hTransaction)
 		FormatEx(sQuery, sizeof(sQuery), "DROP TABLE IF EXISTS `%s_hits`;", g_sTableName);
 		hTransaction.AddQuery(sQuery);
 
-		FormatEx(sQuery, sizeof(sQuery), g_sSQL_CreateTable, g_sTableName, LR_GetDatabaseType() ? ";" : " CHARSET = utf8 COLLATE utf8_general_ci;");
+		FormatEx(sQuery, sizeof(sQuery), g_sSQL_CreateTable, g_sTableName, LR_GetDatabaseType() ? ";" : " CHARSET = utf8mb4 COLLATE utf8mb4_general_ci;");
 		hTransaction.AddQuery(sQuery);
 	}
 }
@@ -319,7 +319,7 @@ public void SQL_Callback(Database db, DBResultSet dbRs, const char[] sError, int
 
 	if(iIndex == -1)
 	{
-		g_hDatabase.SetCharset("utf8");
+		g_hDatabase.SetCharset("utf8mb4");
 
 		g_iEngine = GetEngineVersion();
 
